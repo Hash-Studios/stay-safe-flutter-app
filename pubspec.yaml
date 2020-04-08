@@ -58,7 +58,7 @@ flutter:
   fonts:
     - family: Gothic
       fonts:
-        - asset: fonts/Gothic.ttf
+        - asset: assets/fonts/Gothic.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
