@@ -628,35 +628,64 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              Color.fromARGB(255, 136, 140, 138),
-              Color.fromARGB(255, 209, 203, 204)
-            ])),
-        child: Column(
-          children: <Widget>[
-            Text('Select Country'),
-            ListView.builder(
-                itemCount: countryNames.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(countryNames[index]),
-                    onTap: () {
-                      print(countryNames[index]);
-                      setState(() {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return ResultScreen(countryNames[index]);
-                        }));
-                      });
-                    },
-                  );
-                }),
-          ],
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                Color.fromARGB(255, 136, 140, 138),
+                Color.fromARGB(255, 209, 203, 204)
+              ])),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 9),
+                        child: Text(
+                          'Select Country',
+                          style: TextStyle(fontFamily: "Gothic", fontSize: 24),
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  )),
+              Expanded(
+                flex: 10,
+                child: Container(
+                  child: ListView.separated(
+                      itemCount: countryNames.length,
+                      separatorBuilder: (context, index) {
+                        return Divider(
+                          height: 2,
+                          thickness: 2,
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            countryNames[index],
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          onTap: () {
+                            print(countryNames[index]);
+                            setState(() {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ResultScreen(countryNames[index]);
+                              }));
+                            });
+                          },
+                        );
+                      }),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -672,6 +701,8 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
+  DragStartDetails start;
+  DragUpdateDetails update;
   Future<Countries> futureCountries;
   List listAllValue;
   List allValue;
@@ -688,40 +719,276 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Fetch Data Example'),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            FutureBuilder<Countries>(
-              future: futureCountries,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  try {
-                    listAllValue.add(snapshot.data.countryName.countryStats);
-                    allValue = (listAllValue[0]);
-                    dayValue = (allValue[allValue.length - 1]);
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  Color.fromARGB(255, 136, 140, 138),
+                  Color.fromARGB(255, 209, 203, 204)
+                ])),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 15.0, bottom: 9),
+                              child: Text(
+                                '${widget.country} Stats',
+                                style: TextStyle(
+                                    fontFamily: "Gothic", fontSize: 24),
+                              ),
+                            ),
+                            Divider(),
+                          ],
+                        )),
+                    Expanded(
+                      flex: 9,
+                      child: Container(
+                        width: 370,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 10,
+                            margin: EdgeInsets.all(5),
+                            color: Color.fromARGB(255, 163, 93, 111),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Total Cases',
+                                    style: TextStyle(
+                                        fontFamily: "Gothic", fontSize: 24),
+                                  ),
+                                ),
+                                FutureBuilder<Countries>(
+                                  future: futureCountries,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      try {
+                                        listAllValue.add(snapshot
+                                            .data.countryName.countryStats);
+                                        allValue = (listAllValue[0]);
+                                        dayValue =
+                                            (allValue[allValue.length - 1]);
 
-                    print(allValue.length);
-                    return Column(
-                      children: <Widget>[
-                        Text(dayValue['confirmed'].toString()),
-                      ],
-                    );
-                  } catch (err) {
-                    return Text('Please select a country first $err');
-                  }
-                  // return Text(snapshot.data.countryName.countryStats.toString());
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
+                                        print(allValue.length);
+                                        return Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 60, bottom: 30),
+                                              child: Text(
+                                                dayValue['confirmed']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontFamily: "Gothic",
+                                                    fontSize: 36),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      } catch (err) {
+                                        return Text(
+                                            'Please select a country first $err');
+                                      }
+                                      // return Text(snapshot.data.countryName.countryStats.toString());
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
 
-                // By default, show a loading spinner.
-                return CircularProgressIndicator();
-              },
+                                    // By default, show a loading spinner.
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 9,
+                      child: Container(
+                        width: 370,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 10,
+                            margin: EdgeInsets.all(5),
+                            color: Color.fromARGB(255, 194, 29, 70),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Deaths',
+                                    style: TextStyle(
+                                        fontFamily: "Gothic", fontSize: 24),
+                                  ),
+                                ),
+                                FutureBuilder<Countries>(
+                                  future: futureCountries,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      try {
+                                        listAllValue.add(snapshot
+                                            .data.countryName.countryStats);
+                                        allValue = (listAllValue[0]);
+                                        dayValue =
+                                            (allValue[allValue.length - 1]);
+
+                                        print(allValue.length);
+                                        return Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 60, bottom: 30),
+                                              child: Text(
+                                                dayValue['deaths'].toString(),
+                                                style: TextStyle(
+                                                    fontFamily: "Gothic",
+                                                    fontSize: 36),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      } catch (err) {
+                                        return Text(
+                                            'Please select a country first $err');
+                                      }
+                                      // return Text(snapshot.data.countryName.countryStats.toString());
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
+
+                                    // By default, show a loading spinner.
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 9,
+                      child: Container(
+                        width: 370,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 10,
+                            margin: EdgeInsets.all(5),
+                            color: Color.fromARGB(255, 84, 191, 116),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Recovered',
+                                    style: TextStyle(
+                                        fontFamily: "Gothic", fontSize: 24),
+                                  ),
+                                ),
+                                FutureBuilder<Countries>(
+                                  future: futureCountries,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      try {
+                                        listAllValue.add(snapshot
+                                            .data.countryName.countryStats);
+                                        allValue = (listAllValue[0]);
+                                        dayValue =
+                                            (allValue[allValue.length - 1]);
+
+                                        print(allValue.length);
+                                        return Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 60, bottom: 30),
+                                              child: Text(
+                                                dayValue['recovered']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontFamily: "Gothic",
+                                                    fontSize: 36),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      } catch (err) {
+                                        return Text(
+                                            'Please select a country first $err');
+                                      }
+                                      // return Text(snapshot.data.countryName.countryStats.toString());
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
+
+                                    // By default, show a loading spinner.
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(),
+                    )
+                  ],
+                ),
+                GestureDetector(
+                  onVerticalDragStart: (dragDetails) {
+                    start = dragDetails;
+                  },
+                  onVerticalDragUpdate: (dragDetails) {
+                    update = dragDetails;
+                  },
+                  onVerticalDragEnd: (endDetails) {
+                    double dx =
+                        update.globalPosition.dx - start.globalPosition.dx;
+                    double dy =
+                        update.globalPosition.dy - start.globalPosition.dy;
+                    double velocity = endDetails.primaryVelocity;
+                    if (dx < 0) dx = -dx;
+                    if (dy < 0) dy = -dy;
+                    if (velocity < 0) {
+                    } else {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ResultScreen(widget.country);
+                      }));
+                    }
+                  },
+                )
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
