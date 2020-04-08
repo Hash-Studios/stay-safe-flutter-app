@@ -810,7 +810,11 @@ class _ResultScreenState extends State<ResultScreen> {
                                     }
 
                                     // By default, show a loading spinner.
-                                    return CircularProgressIndicator();
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 60, bottom: 30),
+                                      child: CircularProgressIndicator(),
+                                    );
                                   },
                                 ),
                               ],
@@ -878,7 +882,11 @@ class _ResultScreenState extends State<ResultScreen> {
                                     }
 
                                     // By default, show a loading spinner.
-                                    return CircularProgressIndicator();
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 60, bottom: 30),
+                                      child: CircularProgressIndicator(),
+                                    );
                                   },
                                 ),
                               ],
@@ -947,7 +955,11 @@ class _ResultScreenState extends State<ResultScreen> {
                                     }
 
                                     // By default, show a loading spinner.
-                                    return CircularProgressIndicator();
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 60, bottom: 30),
+                                      child: CircularProgressIndicator(),
+                                    );
                                   },
                                 ),
                               ],
