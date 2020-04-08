@@ -642,11 +642,10 @@ class _MainScreenState extends State<MainScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 15.0, bottom: 9),
                     child: MyBlinkingButton(
-                                          child: Text(
+                      child: Text(
                         'Select Country',
                         style: TextStyle(
                             fontFamily: "Gothic",
-                            
                             color: Color.fromARGB(
                               255,
                               40,
@@ -672,7 +671,8 @@ class _MainScreenState extends State<MainScreen> {
                         return SizedBox(
                           height: 60,
                           child: Card(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
                             color: Color.fromARGB(255, 255, 97, 115),
                             margin: EdgeInsets.only(
                                 left: 8, right: 8, top: 3, bottom: 3),
