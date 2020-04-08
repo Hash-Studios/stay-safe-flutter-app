@@ -1,6 +1,8 @@
+import './blinker.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:slimy_card/slimy_card.dart';
 
 class Country {
   final List countryStats;
@@ -424,7 +426,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
         fontFamily: "Gothic",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -631,55 +633,76 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Color.fromARGB(255, 136, 140, 138),
-                Color.fromARGB(255, 209, 203, 204)
-              ])),
+            color: Color.fromARGB(255, 247, 247, 247),
+          ),
           child: Column(
             children: <Widget>[
               Expanded(
                   flex: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 9),
-                        child: Text(
-                          'Select Country',
-                          style: TextStyle(fontFamily: "Gothic", fontSize: 24),
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 9),
+                    child: MyBlinkingButton(
+                                          child: Text(
+                        'Select Country',
+                        style: TextStyle(
+                            fontFamily: "Gothic",
+                            
+                            color: Color.fromARGB(
+                              255,
+                              40,
+                              40,
+                              40,
+                            )),
                       ),
-                      Divider(),
-                    ],
+                    ),
                   )),
               Expanded(
-                flex: 10,
+                flex: 15,
                 child: Container(
-                  child: ListView.separated(
+                  child: ListView.builder(
                       itemCount: countryNames.length,
-                      separatorBuilder: (context, index) {
-                        return Divider(
-                          height: 2,
-                          thickness: 2,
-                        );
-                      },
+                      // separatorBuilder: (context, index) {
+                      //   return Divider(
+                      //     height: 1,
+                      //     thickness: 1,
+                      //     color: Color.fromARGB(255, 255, 97, 115),
+                      //   );
+                      // },
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            countryNames[index],
-                            style: TextStyle(fontSize: 18),
+                        return SizedBox(
+                          height: 60,
+                          child: Card(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                            color: Color.fromARGB(255, 255, 97, 115),
+                            margin: EdgeInsets.only(
+                                left: 8, right: 8, top: 3, bottom: 3),
+                            elevation: 0,
+                            child: MaterialButton(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 5),
+                                child: Text(
+                                  countryNames[index],
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      color: Color.fromARGB(
+                                        255,
+                                        40,
+                                        40,
+                                        40,
+                                      )),
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return ResultScreen(countryNames[index]);
+                                  }));
+                                });
+                              },
+                            ),
                           ),
-                          onTap: () {
-                            print(countryNames[index]);
-                            setState(() {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return ResultScreen(countryNames[index]);
-                              }));
-                            });
-                          },
                         );
                       }),
                 ),
@@ -722,256 +745,310 @@ class _ResultScreenState extends State<ResultScreen> {
       body: SafeArea(
         child: Center(
           child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                  Color.fromARGB(255, 136, 140, 138),
-                  Color.fromARGB(255, 209, 203, 204)
-                ])),
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 247, 247, 247)),
             child: Stack(
               children: <Widget>[
                 Column(
                   children: <Widget>[
                     Expanded(
-                        flex: 3,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 15.0, bottom: 9),
-                              child: Text(
-                                '${widget.country} Stats',
-                                style: TextStyle(
-                                    fontFamily: "Gothic", fontSize: 24),
-                              ),
-                            ),
-                            Divider(),
-                          ],
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Center(
+                              child: MyBlinkingButton(
+                                  child: Text('Swipe down to refresh'))),
                         )),
                     Expanded(
-                      flex: 9,
+                      flex: 20,
                       child: Container(
                         width: 370,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 10,
-                            margin: EdgeInsets.all(5),
-                            color: Color.fromARGB(255, 163, 93, 111),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Total Cases',
-                                    style: TextStyle(
-                                        fontFamily: "Gothic", fontSize: 24),
+                          padding: const EdgeInsets.only(
+                              top: 100, left: 20, right: 20),
+                          child: ListView(
+                            children: <Widget>[
+                              SlimyCard(
+                                color: Color.fromARGB(255, 255, 97, 115),
+                                borderRadius: 20,
+                                topCardWidget: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        '${widget.country}',
+                                        style: TextStyle(
+                                            fontSize: 36,
+                                            color: Color.fromARGB(
+                                                255, 247, 247, 247)),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Total Cases',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Color.fromARGB(
+                                                255, 200, 200, 200)),
+                                      ),
+                                    ),
+                                    FutureBuilder<Countries>(
+                                      future: futureCountries,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          try {
+                                            listAllValue.add(snapshot
+                                                .data.countryName.countryStats);
+                                            allValue = (listAllValue[0]);
+                                            dayValue =
+                                                (allValue[allValue.length - 1]);
+
+                                            // print(allValue.length);
+                                            return Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 40, bottom: 30),
+                                                  child: Text(
+                                                    dayValue['confirmed']
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontFamily: "Gothic",
+                                                        fontSize: 48,
+                                                        color: Color.fromARGB(
+                                                          255,
+                                                          40,
+                                                          40,
+                                                          40,
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          } catch (err) {
+                                            return Text(
+                                                'Please select a country first $err');
+                                          }
+                                          // return Text(snapshot.data.countryName.countryStats.toString());
+                                        } else if (snapshot.hasError) {
+                                          return Text("${snapshot.error}");
+                                        }
+
+                                        // By default, show a loading spinner.
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 40, bottom: 30),
+                                          child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.red[600])),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                bottomCardHeight: 240,
+                                bottomCardWidget: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      SizedBox(
+                                        width: 140,
+                                        child: Card(
+                                          color: Color.fromARGB(
+                                              255, 194, 253, 171),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  'Recovered',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Color.fromARGB(
+                                                          255, 100, 100, 100)),
+                                                ),
+                                              ),
+                                              FutureBuilder<Countries>(
+                                                future: futureCountries,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    try {
+                                                      listAllValue.add(snapshot
+                                                          .data
+                                                          .countryName
+                                                          .countryStats);
+                                                      allValue =
+                                                          (listAllValue[0]);
+                                                      dayValue = (allValue[
+                                                          allValue.length - 1]);
+
+                                                      // print(allValue.length);
+                                                      return Column(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 40,
+                                                                    bottom: 30),
+                                                            child: Text(
+                                                              dayValue[
+                                                                      'recovered']
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "Gothic",
+                                                                  fontSize: 40,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                    255,
+                                                                    40,
+                                                                    40,
+                                                                    40,
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } catch (err) {
+                                                      return Text(
+                                                          'Please select a country first $err');
+                                                    }
+                                                    // return Text(snapshot.data.countryName.countryStats.toString());
+                                                  } else if (snapshot
+                                                      .hasError) {
+                                                    return Text(
+                                                        "${snapshot.error}");
+                                                  }
+
+                                                  // By default, show a loading spinner.
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 40,
+                                                            bottom: 30),
+                                                    child: CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                                Colors
+                                                                    .red[600])),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 140,
+                                        child: Card(
+                                          color: Color.fromARGB(
+                                              255, 255, 196, 190),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Text(
+                                                  'Deaths',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Color.fromARGB(
+                                                          255, 100, 100, 100)),
+                                                ),
+                                              ),
+                                              FutureBuilder<Countries>(
+                                                future: futureCountries,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    try {
+                                                      listAllValue.add(snapshot
+                                                          .data
+                                                          .countryName
+                                                          .countryStats);
+                                                      allValue =
+                                                          (listAllValue[0]);
+                                                      dayValue = (allValue[
+                                                          allValue.length - 1]);
+
+                                                      // print(allValue.length);
+                                                      return Column(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 40,
+                                                                    bottom: 30),
+                                                            child: Text(
+                                                              dayValue['deaths']
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "Gothic",
+                                                                  fontSize: 40,
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                    255,
+                                                                    40,
+                                                                    40,
+                                                                    40,
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } catch (err) {
+                                                      return Text(
+                                                          'Please select a country first $err');
+                                                    }
+                                                    // return Text(snapshot.data.countryName.countryStats.toString());
+                                                  } else if (snapshot
+                                                      .hasError) {
+                                                    return Text(
+                                                        "${snapshot.error}");
+                                                  }
+
+                                                  // By default, show a loading spinner.
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 40,
+                                                            bottom: 30),
+                                                    child: CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                                Colors
+                                                                    .red[600])),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                FutureBuilder<Countries>(
-                                  future: futureCountries,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      try {
-                                        listAllValue.add(snapshot
-                                            .data.countryName.countryStats);
-                                        allValue = (listAllValue[0]);
-                                        dayValue =
-                                            (allValue[allValue.length - 1]);
-
-                                        print(allValue.length);
-                                        return Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 60, bottom: 30),
-                                              child: Text(
-                                                dayValue['confirmed']
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontFamily: "Gothic",
-                                                    fontSize: 36),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } catch (err) {
-                                        return Text(
-                                            'Please select a country first $err');
-                                      }
-                                      // return Text(snapshot.data.countryName.countryStats.toString());
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    // By default, show a loading spinner.
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 60, bottom: 30),
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                              )
+                            ],
                           ),
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 9,
-                      child: Container(
-                        width: 370,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 10,
-                            margin: EdgeInsets.all(5),
-                            color: Color.fromARGB(255, 194, 29, 70),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Deaths',
-                                    style: TextStyle(
-                                        fontFamily: "Gothic", fontSize: 24),
-                                  ),
-                                ),
-                                FutureBuilder<Countries>(
-                                  future: futureCountries,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      try {
-                                        listAllValue.add(snapshot
-                                            .data.countryName.countryStats);
-                                        allValue = (listAllValue[0]);
-                                        dayValue =
-                                            (allValue[allValue.length - 1]);
-
-                                        print(allValue.length);
-                                        return Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 60, bottom: 30),
-                                              child: Text(
-                                                dayValue['deaths'].toString(),
-                                                style: TextStyle(
-                                                    fontFamily: "Gothic",
-                                                    fontSize: 36),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } catch (err) {
-                                        return Text(
-                                            'Please select a country first $err');
-                                      }
-                                      // return Text(snapshot.data.countryName.countryStats.toString());
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    // By default, show a loading spinner.
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 60, bottom: 30),
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 9,
-                      child: Container(
-                        width: 370,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 10,
-                            margin: EdgeInsets.all(5),
-                            color: Color.fromARGB(255, 84, 191, 116),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    'Recovered',
-                                    style: TextStyle(
-                                        fontFamily: "Gothic", fontSize: 24),
-                                  ),
-                                ),
-                                FutureBuilder<Countries>(
-                                  future: futureCountries,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      try {
-                                        listAllValue.add(snapshot
-                                            .data.countryName.countryStats);
-                                        allValue = (listAllValue[0]);
-                                        dayValue =
-                                            (allValue[allValue.length - 1]);
-
-                                        print(allValue.length);
-                                        return Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 60, bottom: 30),
-                                              child: Text(
-                                                dayValue['recovered']
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontFamily: "Gothic",
-                                                    fontSize: 36),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      } catch (err) {
-                                        return Text(
-                                            'Please select a country first $err');
-                                      }
-                                      // return Text(snapshot.data.countryName.countryStats.toString());
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    // By default, show a loading spinner.
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 60, bottom: 30),
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(),
-                    )
                   ],
                 ),
                 GestureDetector(
