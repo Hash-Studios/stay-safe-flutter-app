@@ -79,88 +79,85 @@ class _InfoScreenState extends State<InfoScreen> {
                   children: <Widget>[
                     Card(
                       color: Color.fromARGB(255, 247, 247, 247),
-                      elevation: 4,
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-6.jpg")),
-                              ),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-6.jpg")),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-8.jpg")),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-8.jpg")),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-7.jpg")),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-7.jpg")),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-5.jpg")),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-5.jpg")),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-9.jpg")),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-9.jpg")),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                        "assets/images/Untitled-4.jpg")),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                      "assets/images/Untitled-4.jpg")),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

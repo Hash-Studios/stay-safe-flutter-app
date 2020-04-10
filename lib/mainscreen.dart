@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './blinker.dart';
 import './resultscreen.dart';
+import 'package:flutter/cupertino.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -501,7 +502,7 @@ class _MainScreenState extends State<MainScreen> {
                             onTap: () {
                               setState(() {
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
+                                    CupertinoPageRoute(builder: (context) {
                                   return ResultPage(items[index]);
                                 }));
                               });
