@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class WaitingScreen extends StatefulWidget {
   Function changeHasFetched;
@@ -19,7 +20,10 @@ class _WaitingScreenState extends State<WaitingScreen> {
   }
   var rng = new Random();
   int rn = 0;
-
+  void onTabTapped(int index) {
+    setState(() {
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -35,6 +39,23 @@ class _WaitingScreenState extends State<WaitingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Stay Safe'),
+        backgroundColor: Colors.red,
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Color.fromARGB(255, 247, 247, 247),
+          height: 60,
+          animationCurve: Curves.fastOutSlowIn,
+          color: Color.fromARGB(255, 255, 220, 220),
+          index: 1,
+          onTap: (index) {
+            onTabTapped(index);
+          }, // new
+          items: <Widget>[
+            Icon(Icons.add, color: Colors.red),
+            Icon(Icons.list, color: Colors.red)
+          ]),
       body: Material(
         child: SafeArea(
           child: Column(

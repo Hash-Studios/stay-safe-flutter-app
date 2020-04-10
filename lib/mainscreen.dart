@@ -8,7 +8,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List countryNames = [
+  static List countryNames = [
     'Afghanistan',
     'Albania',
     'Algeria',
@@ -380,6 +380,39 @@ class _MainScreenState extends State<MainScreen> {
     'EH',
     'ST'
   ];
+  final duplicateItems =
+      List<String>.generate(countryNames.length, (i) => countryNames[i]);
+  TextEditingController editingController = TextEditingController();
+  var items = List<String>();
+  void filterSearchResults(String query) {
+    List<String> dummySearchList = List<String>();
+    dummySearchList.addAll(duplicateItems);
+    if (query.isNotEmpty) {
+      List<String> dummyListData = List<String>();
+      dummySearchList.forEach((item) {
+        if (item.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        items.clear();
+        items.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        items.addAll(duplicateItems);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    items.addAll(duplicateItems);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -389,29 +422,27 @@ class _MainScreenState extends State<MainScreen> {
         ),
         child: Column(
           children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, bottom: 9),
-                  child: MyBlinkingButton(
-                    child: Text(
-                      'Select Country',
-                      style: TextStyle(
-                          fontFamily: "Gothic",
-                          color: Color.fromARGB(
-                            255,
-                            40,
-                            40,
-                            40,
-                          )),
-                    ),
-                  ),
-                )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                onChanged: (value) {
+                  filterSearchResults(value);
+                },
+                controller: editingController,
+                decoration: InputDecoration(
+                    labelText: "Search",
+                    hintText: "Select Country",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(25.0)))),
+              ),
+            ),
             Expanded(
               flex: 15,
               child: Container(
                 child: ListView.builder(
-                    itemCount: countryNames.length,
+                    itemCount: items.length,
                     // separatorBuilder: (context, index) {
                     //   return Divider(
                     //     height: 1,
@@ -423,7 +454,7 @@ class _MainScreenState extends State<MainScreen> {
                       return SizedBox(
                         height: 60,
                         child: Hero(
-                          tag: "${countryNames[index]}",
+                          tag: "${items[index]}",
                           child: ListTile(
                             leading: countryFlag[index] == ''
                                 ? Image.asset(
@@ -431,9 +462,9 @@ class _MainScreenState extends State<MainScreen> {
                                     width: 32,
                                   )
                                 : Image.network(
-                                    "https://www.countryflags.io/${countryFlag[index]}/flat/32.png"),
+                                    "https://www.countryflags.io/${countryFlag[countryNames.indexOf(items[index])]}/flat/32.png"),
                             title: Text(
-                              countryNames[index],
+                              items[index],
                               style: TextStyle(
                                   fontSize: 24,
                                   color: Color.fromARGB(
@@ -471,7 +502,7 @@ class _MainScreenState extends State<MainScreen> {
                               setState(() {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return ResultScreen(countryNames[index]);
+                                  return ResultPage(items[index]);
                                 }));
                               });
                             },
@@ -486,6 +517,5 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-    ;
   }
 }

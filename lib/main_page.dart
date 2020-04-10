@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _children[_currentIndex],
-      appBar: AppBar(
+      appBar: AppBar(title:Text('Stay Safe'),
         backgroundColor: Colors.red,
       ),
       bottomNavigationBar: CurvedNavigationBar(
