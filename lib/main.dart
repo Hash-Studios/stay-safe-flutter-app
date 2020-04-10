@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './mainscreen.dart';
-
+import './main_page.dart';
 
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Gothic",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainScreen(),
+      home: MainPage(),
     );
   }
 }

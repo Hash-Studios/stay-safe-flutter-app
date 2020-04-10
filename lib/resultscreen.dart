@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import './blinker.dart';
-import 'package:slimy_card/slimy_card.dart';
 import './datafetch.dart';
 import './waitingscreen.dart';
 import './graph.dart';
-import './graphscreen.dart';
 
 class ResultScreen extends StatefulWidget {
   String country;

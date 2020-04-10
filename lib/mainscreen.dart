@@ -194,93 +194,298 @@ class _MainScreenState extends State<MainScreen> {
     'Western Sahara',
     'Sao Tome and Principe'
   ];
+  List countryFlag = [
+    'AF',
+    'AL',
+    'DZ',
+    'AD',
+    'AO',
+    'AG',
+    'AR',
+    'AM',
+    'AU',
+    'AT',
+    'AZ',
+    'BS',
+    'BH',
+    'BD',
+    'BB',
+    'BY',
+    'BE',
+    'BJ',
+    'BT',
+    'BO',
+    'BA',
+    'BR',
+    'BN',
+    'BG',
+    'BF',
+    'CV',
+    'KH',
+    'CM',
+    'CA',
+    'CF',
+    'TD',
+    'CL',
+    'CN',
+    'CO',
+    'CD',
+    'CG',
+    'CR',
+    'CI',
+    'HR',
+    '',
+    'CU',
+    'CY',
+    'CZ',
+    'DK',
+    'DJ',
+    'DO',
+    'EC',
+    'EG',
+    'SV',
+    'GQ',
+    'ER',
+    'EE',
+    '',
+    'ET',
+    'FJ',
+    'FI',
+    'FR',
+    'GA',
+    'GM',
+    'GE',
+    'DE',
+    'GH',
+    'GR',
+    'GT',
+    'GN',
+    'GY',
+    'HT',
+    'VA',
+    'HN',
+    'HU',
+    'IS',
+    'IN',
+    'ID',
+    'IR',
+    'IQ',
+    'IE',
+    'IL',
+    'IT',
+    'JM',
+    'JP',
+    'JO',
+    'KZ',
+    'KE',
+    'KR',
+    'KW',
+    'KG',
+    'LV',
+    'LB',
+    'LR',
+    'LI',
+    'LT',
+    'LU',
+    'MG',
+    'MY',
+    'MV',
+    'MT',
+    'MR',
+    'MU',
+    'MX',
+    'MD',
+    'MC',
+    'MN',
+    'ME',
+    'MA',
+    'NA',
+    'NP',
+    'NL',
+    'NZ',
+    'NI',
+    'NE',
+    'NG',
+    'MK',
+    'NO',
+    'OM',
+    'PK',
+    'PA',
+    'PG',
+    'PY',
+    'PE',
+    'PH',
+    'PL',
+    'PT',
+    'QA',
+    'RO',
+    'RU',
+    'RW',
+    'LC',
+    'VC',
+    'SM',
+    'SA',
+    'SN',
+    'RS',
+    'SC',
+    'SG',
+    'SK',
+    'SI',
+    'SO',
+    'ZA',
+    'ES',
+    'LK',
+    'SD',
+    'SR',
+    'SE',
+    'CH',
+    'TW',
+    'TZ',
+    'TH',
+    'TG',
+    'TT',
+    'TN',
+    'TR',
+    'UG',
+    'UA',
+    'AE',
+    'GB',
+    'UY',
+    'US',
+    'UZ',
+    'VE',
+    'VN',
+    'ZM',
+    'ZW',
+    'DM',
+    'GD',
+    'MZ',
+    'SY',
+    'TL',
+    'BZ',
+    'LA',
+    'LY',
+    '',
+    'GW',
+    'ML',
+    'KN',
+    'XK',
+    '',
+    '',
+    'BW',
+    'BI',
+    'SL',
+    'MW',
+    'SS',
+    'EH',
+    'ST'
+  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 247, 247, 247),
-          ),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0, bottom: 9),
-                    child: MyBlinkingButton(
-                      child: Text(
-                        'Select Country',
-                        style: TextStyle(
-                            fontFamily: "Gothic",
-                            color: Color.fromARGB(
-                              255,
-                              40,
-                              40,
-                              40,
-                            )),
-                      ),
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 247, 247, 247),
+        ),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0, bottom: 9),
+                  child: MyBlinkingButton(
+                    child: Text(
+                      'Select Country',
+                      style: TextStyle(
+                          fontFamily: "Gothic",
+                          color: Color.fromARGB(
+                            255,
+                            40,
+                            40,
+                            40,
+                          )),
                     ),
-                  )),
-              Expanded(
-                flex: 15,
-                child: Container(
-                  child: ListView.builder(
-                      itemCount: countryNames.length,
-                      // separatorBuilder: (context, index) {
-                      //   return Divider(
-                      //     height: 1,
-                      //     thickness: 1,
-                      //     color: Color.fromARGB(255, 255, 97, 115),
-                      //   );
-                      // },
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          height: 60,
-                          child: Hero(
-                            tag: "${countryNames[index]}",
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              color: Color.fromARGB(255, 255, 97, 115),
-                              margin: EdgeInsets.only(
-                                  left: 8, right: 8, top: 3, bottom: 3),
-                              elevation: 0,
-                              child: MaterialButton(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, top: 5),
-                                  child: Text(
-                                    countryNames[index],
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        color: Color.fromARGB(
-                                          255,
-                                          40,
-                                          40,
-                                          40,
-                                        )),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return ResultScreen(countryNames[index]);
-                                    }));
-                                  });
-                                },
-                              ),
+                  ),
+                )),
+            Expanded(
+              flex: 15,
+              child: Container(
+                child: ListView.builder(
+                    itemCount: countryNames.length,
+                    // separatorBuilder: (context, index) {
+                    //   return Divider(
+                    //     height: 1,
+                    //     thickness: 1,
+                    //     color: Color.fromARGB(255, 255, 97, 115),
+                    //   );
+                    // },
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        height: 60,
+                        child: Hero(
+                          tag: "${countryNames[index]}",
+                          child: ListTile(
+                            leading: countryFlag[index] == ''
+                                ? Image.asset(
+                                    "assets/icon/earth.png",
+                                    width: 32,
+                                  )
+                                : Image.network(
+                                    "https://www.countryflags.io/${countryFlag[index]}/flat/32.png"),
+                            title: Text(
+                              countryNames[index],
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Color.fromARGB(
+                                    255,
+                                    40,
+                                    40,
+                                    40,
+                                  )),
                             ),
+                            // child:MaterialButton(
+                            //   child: Padding(
+                            //     padding:
+                            //         const EdgeInsets.only(left: 20, top: 5),
+                            //     child: Row(
+                            //       children: <Widget>[
+                            //         countryFlag[index] == ''
+                            //             ? Container()
+                            //             : Image.network(
+                            //                 "https://www.countryflags.io/${countryFlag[index]}/flat/32.png"),
+                            //         Text(
+                            //           countryNames[index],
+                            //           style: TextStyle(
+                            //               fontSize: 24,
+                            //               color: Color.fromARGB(
+                            //                 255,
+                            //                 40,
+                            //                 40,
+                            //                 40,
+                            //               )),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            onTap: () {
+                              setState(() {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ResultScreen(countryNames[index]);
+                                }));
+                              });
+                            },
+                            // ),
                           ),
-                        );
-                      }),
-                ),
+                        ),
+                      );
+                    }),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+    ;
   }
 }
