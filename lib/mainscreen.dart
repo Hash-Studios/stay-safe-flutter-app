@@ -425,6 +425,7 @@ class _MainScreenState extends State<MainScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                textCapitalization: TextCapitalization.sentences,
                 onChanged: (value) {
                   filterSearchResults(value);
                 },
@@ -434,8 +435,7 @@ class _MainScreenState extends State<MainScreen> {
                     hintText: "Select Country",
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(25.0)))),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)))),
               ),
             ),
             Expanded(

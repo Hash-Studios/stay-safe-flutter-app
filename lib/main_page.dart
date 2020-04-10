@@ -1,6 +1,8 @@
 import './mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import './infoscreen.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final List<Widget> _children = [Material(), MainScreen()];
+  final List<Widget> _children = [InfoScreen(), MainScreen()];
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -32,7 +34,7 @@ class _MainPageState extends State<MainPage> {
             onTabTapped(index);
           }, // new
           items: <Widget>[
-            Icon(Icons.add, color: Colors.red),
+            Icon(Icons.info, color: Colors.red),
             Icon(Icons.list, color: Colors.red)
           ]),
     );

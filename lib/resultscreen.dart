@@ -3,6 +3,7 @@ import './blinker.dart';
 import './datafetch.dart';
 import './waitingscreen.dart';
 import './graph.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResultPage extends StatefulWidget {
   String country;
@@ -185,7 +186,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                                 changeIsGraph();
                                               },
                                               icon: isGraph
-                                                  ? Icon(Icons.date_range)
+                                                  ? Icon(FontAwesomeIcons.database)
                                                   : Icon(
                                                       Icons.show_chart,
                                                       size: 30,
