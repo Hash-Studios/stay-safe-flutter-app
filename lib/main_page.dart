@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import './mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -20,6 +22,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 720, height: 1440, allowFontScaling: true);
     return Scaffold(
       body: _children[_currentIndex],
       appBar: AppBar(title:Text('Stay Safe'),
